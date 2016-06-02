@@ -15,7 +15,8 @@
   ~  You should have received a copy of the GNU General Public License
   ~  along with Subsonic.  If not, see <http://www.gnu.org/licenses/>.
   ~
-  ~  Copyright 2014 (C) Sindre Mehus
+  ~ Copyright 2016 (C) Subrobotnik Team
+  ~ Based on Subsonic, Copyright 2015 (C) Sindre Mehus
   --%>
 
 <%--@elvariable id="model" type="java.util.Map"--%>

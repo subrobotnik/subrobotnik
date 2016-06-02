@@ -15,7 +15,8 @@
   ~  You should have received a copy of the GNU General Public License
   ~  along with Subsonic.  If not, see <http://www.gnu.org/licenses/>.
   ~
-  ~  Copyright 2014 (C) Sindre Mehus
+  ~  Copyright 2016 (C) Subrobotnik Team
+  ~ Based upon Subsonic, Copyright 2014 (C) Sindre Mehus
   -->
 
 <web-app id="subsonic" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"

@@ -15,7 +15,8 @@
   ~  You should have received a copy of the GNU General Public License
   ~  along with Subsonic.  If not, see <http://www.gnu.org/licenses/>.
   ~
-  ~  Copyright 2014 (C) Sindre Mehus
+  ~ Copyright 2016 (C) Subrobotnik Team
+  ~ Based on Subsonic, Copyright 2014 (C) Sindre Mehus
   --%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">

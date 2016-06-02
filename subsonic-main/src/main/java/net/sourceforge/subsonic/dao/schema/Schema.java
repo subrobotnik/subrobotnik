@@ -14,7 +14,8 @@
  You should have received a copy of the GNU General Public License
  along with Subsonic.  If not, see <http://www.gnu.org/licenses/>.
 
- Copyright 2009 (C) Sindre Mehus
+ Copyright 2016 (C) Subrobotnik Team
+ Based upon Subsonic, Copyright 2009 (C) Sindre Mehus
  */
 package net.sourceforge.subsonic.dao.schema;
 
