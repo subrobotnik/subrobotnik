@@ -42,7 +42,7 @@ import java.util.regex.Pattern;
 
 /**
  * Provides version-related services, including functionality for determining whether a newer
- * version of Subsonic is available.
+ * version of Subrobotnik is available.
  *
  * @author Sindre Mehus
  */
@@ -77,26 +77,26 @@ public class VersionService {
     }
 
     /**
-     * Returns the version number for the locally installed Subsonic version.
+     * Returns the version number for the locally installed Subrobotnik version.
      *
-     * @return The version number for the locally installed Subsonic version.
+     * @return The version number for the locally installed Subrobotnik version.
      */
     public synchronized Version getLocalVersion() {
         if (localVersion == null) {
             try {
                 localVersion = new Version(readLineFromResource("/version.txt"));
-                LOG.info("Resolved local Subsonic version to: " + localVersion);
+                LOG.info("Resolved local Subrobotnik version to: " + localVersion);
             } catch (Exception x) {
-                LOG.warn("Failed to resolve local Subsonic version.", x);
+                LOG.warn("Failed to resolve local Subrobotnik version.", x);
             }
         }
         return localVersion;
     }
 
     /**
-     * Returns the version number for the latest available Subsonic final version.
+     * Returns the version number for the latest available Subrobotnik final version.
      *
-     * @return The version number for the latest available Subsonic final version, or <code>null</code>
+     * @return The version number for the latest available Subrobotnik final version, or <code>null</code>
      *         if the version number can't be resolved.
      */
     public synchronized Version getLatestFinalVersion() {
@@ -105,9 +105,9 @@ public class VersionService {
     }
 
     /**
-     * Returns the version number for the latest available Subsonic beta version.
+     * Returns the version number for the latest available Subrobotnik beta version.
      *
-     * @return The version number for the latest available Subsonic beta version, or <code>null</code>
+     * @return The version number for the latest available Subrobotnik beta version, or <code>null</code>
      *         if the version number can't be resolved.
      */
     public synchronized Version getLatestBetaVersion() {
@@ -116,9 +116,9 @@ public class VersionService {
     }
 
     /**
-     * Returns the build date for the locally installed Subsonic version.
+     * Returns the build date for the locally installed Subrobotnik version.
      *
-     * @return The build date for the locally installed Subsonic version, or <code>null</code>
+     * @return The build date for the locally installed Subrobotnik version, or <code>null</code>
      *         if the build date can't be resolved.
      */
     public synchronized Date getLocalBuildDate() {
@@ -127,16 +127,16 @@ public class VersionService {
                 String date = readLineFromResource("/build_date.txt");
                 localBuildDate = DATE_FORMAT.parse(date);
             } catch (Exception x) {
-                LOG.warn("Failed to resolve local Subsonic build date.", x);
+                LOG.warn("Failed to resolve local Subrobotnik build date.", x);
             }
         }
         return localBuildDate;
     }
 
     /**
-     * Returns the build number for the locally installed Subsonic version.
+     * Returns the build number for the locally installed Subrobotnik version.
      *
-     * @return The build number for the locally installed Subsonic version, or <code>null</code>
+     * @return The build number for the locally installed Subrobotnik version, or <code>null</code>
      *         if the build number can't be resolved.
      */
     public synchronized String getLocalBuildNumber() {
@@ -144,42 +144,28 @@ public class VersionService {
             try {
                 localBuildNumber = readLineFromResource("/build_number.txt");
             } catch (Exception x) {
-                LOG.warn("Failed to resolve local Subsonic build number.", x);
+                LOG.warn("Failed to resolve local Subrobotnik build number.", x);
             }
         }
         return localBuildNumber;
     }
 
     /**
-     * Returns whether a new final version of Subsonic is available.
+     * Returns whether a new final version is available.
      *
-     * @return Whether a new final version of Subsonic is available.
+     * @return Whether a new final version is available.
      */
     public boolean isNewFinalVersionAvailable() {
-        Version latest = getLatestFinalVersion();
-        Version local = getLocalVersion();
-
-        if (latest == null || local == null) {
-            return false;
-        }
-
-        return local.compareTo(latest) < 0;
+        return false;
     }
 
     /**
-     * Returns whether a new beta version of Subsonic is available.
+     * Returns whether a new beta version is available.
      *
-     * @return Whether a new beta version of Subsonic is available.
+     * @return Whether a new beta version is available.
      */
     public boolean isNewBetaVersionAvailable() {
-        Version latest = getLatestBetaVersion();
-        Version local = getLocalVersion();
-
-        if (latest == null || local == null) {
-            return false;
-        }
-
-        return local.compareTo(latest) < 0;
+        return false;
     }
 
     /**
@@ -219,13 +205,13 @@ public class VersionService {
                 lastVersionFetched = now;
                 readLatestVersion();
             } catch (Exception x) {
-                LOG.warn("Failed to resolve latest Subsonic version.", x);
+                LOG.warn("Failed to resolve latest Subrobotnik version.", x);
             }
         }
     }
 
     /**
-     * Resolves the latest available Subsonic version by screen-scraping a web page.
+     * Resolves the latest available Subrobotnik version by screen-scraping a web page.
      *
      * @throws IOException If an I/O error occurs.
      */
