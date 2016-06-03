@@ -7,7 +7,7 @@
 
     <%@ include file="head.jsp" %>
 
-    <card id="main" title="Subsonic" newcontext="false">
+    <card id="main" title="Subrobotnik" newcontext="false">
         <p><small>
 
             <c:forEach items="${model.playlists}" var="playlist">

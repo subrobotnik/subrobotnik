@@ -19,7 +19,7 @@
     </c:if>
 
 
-    <card id="main" title="Subsonic" newcontext="false">
+    <card id="main" title="Subrobotnik" newcontext="false">
         <p><small><b><fmt:message key="wap.playlist.title"/>${playerName}</b></small></p>
         <p><small>
 

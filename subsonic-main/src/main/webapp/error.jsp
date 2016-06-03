@@ -16,9 +16,7 @@
 </h1>
 
 <p>
-    Subsonic encountered an internal error. You can report this error in the
-    <a href="http://forum.subsonic.org" target="_blank">Subsonic Forum</a>.
-    Please include the information below.
+    Subrobotnik encountered an internal error. Sorry for the inconvenience.
 </p>
 
 <%

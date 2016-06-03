@@ -456,7 +456,7 @@
     }
 
     function updateWindowTitle(song) {
-        top.document.title = song.title + " - " + song.artist + " - Subsonic";
+        top.document.title = song.title + " - " + song.artist + " - Subrobotnik";
     }
 
     function showNotification(song) {
@@ -478,7 +478,7 @@
 
     function createNotification(song) {
         var n = new Notification(song.title, {
-            tag: "subsonic",
+            tag: "subrobotnik",
             body: song.artist + " - " + song.album,
             icon: "coverArt.view?id=" + song.id + "&size=110"
         });
