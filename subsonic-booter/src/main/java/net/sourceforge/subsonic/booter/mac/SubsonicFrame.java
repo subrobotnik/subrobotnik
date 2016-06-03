@@ -30,7 +30,7 @@ public class SubsonicFrame extends JFrame {
         layoutComponents();
         addBehaviour();
 
-        URL url = Main.class.getResource("/images/subsonic-512.png");
+        URL url = Main.class.getResource("/images/logo-512.png");
         setIconImage(Toolkit.getDefaultToolkit().createImage(url));
     }
 

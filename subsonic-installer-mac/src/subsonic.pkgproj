@@ -586,7 +586,7 @@
 				<key>BACKGROUND_PATH</key>
 				<dict>
 					<key>PATH</key>
-					<string>subsonic.png</string>
+					<string>logo.png</string>
 					<key>PATH_TYPE</key>
 					<integer>1</integer>
 				</dict>

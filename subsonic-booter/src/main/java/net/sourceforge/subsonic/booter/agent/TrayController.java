@@ -70,8 +70,8 @@ public class TrayController implements SubsonicListener {
     }
 
     private void createComponents() {
-        startedImage = createImage("/images/subsonic-started-16.png");
-        stoppedImage = createImage("/images/subsonic-stopped-16.png");
+        startedImage = createImage("/images/logo-16.png");
+        stoppedImage = createImage("/images/logo-16-green.png");
 
         PopupMenu menu = new PopupMenu();
         menu.add(createMenuItem(openAction));

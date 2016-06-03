@@ -48,13 +48,13 @@ public class SubsonicFrame extends JFrame {
         try {
             Method method = Window.class.getMethod("setIconImages", java.util.List.class);
             java.util.List<Image> images = Arrays.asList(
-                    toolkit.createImage(Main.class.getResource("/images/subsonic-16.png")),
-                    toolkit.createImage(Main.class.getResource("/images/subsonic-32.png")),
-                    toolkit.createImage(Main.class.getResource("/images/subsonic-512.png")));
+                    toolkit.createImage(Main.class.getResource("/images/logo-16.png")),
+                    toolkit.createImage(Main.class.getResource("/images/logo-32.png")),
+                    toolkit.createImage(Main.class.getResource("/images/logo-512.png")));
             method.invoke(this, images);
         } catch (Throwable x) {
             // Fallback to old method.
-            setIconImage(toolkit.createImage(Main.class.getResource("/images/subsonic-32.png")));
+            setIconImage(toolkit.createImage(Main.class.getResource("/images/logo-32.png")));
         }
     }
 
