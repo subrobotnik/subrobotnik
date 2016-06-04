@@ -349,7 +349,6 @@
         <property name="commandClass" value="net.sourceforge.subsonic.command.PremiumSettingsCommand"/>
         <property name="successView" value="premiumSettings"/>
         <property name="formView" value="premiumSettings"/>
-        <property name="validator" ref="premiumSettingsValidator"/>
         <property name="settingsService" ref="settingsService"/>
         <property name="securityService" ref="securityService"/>
     </bean>
@@ -402,9 +401,6 @@
     <bean id="dbController" class="net.sourceforge.subsonic.controller.DBController">
         <property name="viewName" value="db"/>
         <property name="daoHelper" ref="daoHelper"/>
-    </bean>
-    <bean id="premiumSettingsValidator" class="net.sourceforge.subsonic.validator.PremiumSettingsValidator">
-        <property name="settingsService" ref="settingsService"/>
     </bean>
     <bean id="userSettingsValidator" class="net.sourceforge.subsonic.validator.UserSettingsValidator">
         <property name="securityService" ref="securityService"/>

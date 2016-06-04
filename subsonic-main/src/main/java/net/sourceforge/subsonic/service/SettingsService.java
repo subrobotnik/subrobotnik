@@ -19,37 +19,6 @@
  */
 package net.sourceforge.subsonic.service;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Properties;
-import java.util.StringTokenizer;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
-
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.HttpConnectionParams;
-
 import net.sourceforge.subsonic.Logger;
 import net.sourceforge.subsonic.dao.AvatarDao;
 import net.sourceforge.subsonic.dao.InternetRadioDao;
@@ -67,6 +36,34 @@ import net.sourceforge.subsonic.domain.UserSettings;
 import net.sourceforge.subsonic.util.FileUtil;
 import net.sourceforge.subsonic.util.StringUtil;
 import net.sourceforge.subsonic.util.Util;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Properties;
+import java.util.StringTokenizer;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+import static java.util.Calendar.YEAR;
+import static java.util.TimeZone.getTimeZone;
 
 /**
  * Provides persistent storage of application settings and preferences.
@@ -177,7 +174,6 @@ public class SettingsService {
     private static final int DEFAULT_PODCAST_EPISODE_DOWNLOAD_COUNT = 1;
     private static final long DEFAULT_DOWNLOAD_BITRATE_LIMIT = 0;
     private static final long DEFAULT_UPLOAD_BITRATE_LIMIT = 0;
-    private static final String DEFAULT_LICENSE_EMAIL = null;
     private static final String DEFAULT_LICENSE_CODE = null;
     private static final String DEFAULT_LICENSE_DATE = null;
     private static final String DEFAULT_DOWNSAMPLING_COMMAND = "ffmpeg -i %s -map 0:0 -b:a %bk -v 0 -f mp3 -";
@@ -230,7 +226,6 @@ public class SettingsService {
     private MusicFolderDao musicFolderDao;
     private UserDao userDao;
     private AvatarDao avatarDao;
-    private VersionService versionService;
 
     private String[] cachedCoverArtFileTypesArray;
     private String[] cachedMusicFileTypesArray;
@@ -240,12 +235,8 @@ public class SettingsService {
 
     private static File subsonicHome;
 
-    private boolean licenseValidated = true;
-    private Date licenseExpires;
     private final ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
-    private ScheduledFuture<?> licenseValidationFuture;
 
-    private static final long LICENSE_VALIDATION_DELAY_HOURS = 12;
     private static final long LOCAL_IP_LOOKUP_DELAY_SECONDS = 60;
     private String localIpAddress;
 
@@ -287,15 +278,8 @@ public class SettingsService {
      * This method is invoked automatically by Spring.
      */
     public void init() {
-        logServerInfo();
         ServiceLocator.setSettingsService(this);
         scheduleLocalIpAddressLookup();
-        scheduleLicenseValidation();
-    }
-
-    private void logServerInfo() {
-        LOG.info("Java: " + System.getProperty("java.version") +
-                 ", OS: " + System.getProperty("os.name"));
     }
 
     public void save() {
@@ -643,7 +627,7 @@ public class SettingsService {
     }
 
     public String getLicenseEmail() {
-        return properties.getProperty(KEY_LICENSE_EMAIL, DEFAULT_LICENSE_EMAIL);
+        return "sub@robotn.ik";
     }
 
     public void setLicenseEmail(String email) {
@@ -668,24 +652,15 @@ public class SettingsService {
         setProperty(KEY_LICENSE_DATE, value);
     }
 
-    public boolean isLicenseValid() {
-        return isLicenseValid(getLicenseEmail(), getLicenseCode()) && licenseValidated;
-    }
-
-    public boolean isLicenseValid(String email, String license) {
-        if (email == null || license == null) {
-            return false;
-        }
-        return license.equalsIgnoreCase(StringUtil.md5Hex(email.toLowerCase()));
-    }
-
     public LicenseInfo getLicenseInfo() {
         Date trialExpires = getTrialExpires();
         Date now = new Date();
         boolean trialValid = trialExpires.after(now);
         long trialDaysLeft = trialValid ? (trialExpires.getTime() - now.getTime()) / (24L * 3600L * 1000L) : 0L;
 
-        return new LicenseInfo(getLicenseEmail(), isLicenseValid(), trialExpires, trialDaysLeft, licenseExpires);
+        Calendar calendar = Calendar.getInstance(getTimeZone("UTC"));
+        calendar.add(YEAR, 9);
+        return new LicenseInfo(getLicenseEmail(), true, trialExpires, trialDaysLeft, calendar.getTime());
     }
 
     public String getDownsamplingCommand() {
@@ -1399,25 +1374,6 @@ public class SettingsService {
         return result.toArray(new String[result.size()]);
     }
 
-    private void validateLicense() {
-        licenseValidated = true;
-    }
-
-    public synchronized void scheduleLicenseValidation() {
-        if (licenseValidationFuture != null) {
-            licenseValidationFuture.cancel(true);
-        }
-        Runnable task = new Runnable() {
-            public void run() {
-                validateLicense();
-            }
-        };
-        licenseValidated = true;
-        licenseExpires = null;
-
-        licenseValidationFuture = executor.scheduleWithFixedDelay(task, 0L, LICENSE_VALIDATION_DELAY_HOURS, TimeUnit.HOURS);
-    }
-
     private void scheduleLocalIpAddressLookup() {
         Runnable task = new Runnable() {
             public void run() {
@@ -1441,9 +1397,5 @@ public class SettingsService {
 
     public void setAvatarDao(AvatarDao avatarDao) {
         this.avatarDao = avatarDao;
-    }
-
-    public void setVersionService(VersionService versionService) {
-        this.versionService = versionService;
     }
 }

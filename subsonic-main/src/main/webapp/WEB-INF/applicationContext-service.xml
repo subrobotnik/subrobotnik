@@ -91,7 +91,6 @@
         <property name="musicFolderDao" ref="musicFolderDao"/>
         <property name="userDao" ref="userDao"/>
         <property name="avatarDao" ref="avatarDao"/>
-        <property name="versionService" ref="versionService"/>
     </bean>
 
     <bean id="mediaScannerService" class="net.sourceforge.subsonic.service.MediaScannerService" init-method="init" depends-on="metaDataParserFactory">

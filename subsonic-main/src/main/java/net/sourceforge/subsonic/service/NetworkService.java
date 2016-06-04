@@ -19,16 +19,13 @@
  */
 package net.sourceforge.subsonic.service;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import net.sourceforge.subsonic.Logger;
+import net.sourceforge.subsonic.domain.UrlRedirectType;
+import net.sourceforge.subsonic.service.upnp.ClingRouter;
+import net.sourceforge.subsonic.service.upnp.NATPMPRouter;
+import net.sourceforge.subsonic.service.upnp.Router;
+import net.sourceforge.subsonic.util.StringUtil;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
@@ -43,12 +40,14 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.util.EntityUtils;
 
-import net.sourceforge.subsonic.Logger;
-import net.sourceforge.subsonic.domain.UrlRedirectType;
-import net.sourceforge.subsonic.service.upnp.ClingRouter;
-import net.sourceforge.subsonic.service.upnp.NATPMPRouter;
-import net.sourceforge.subsonic.service.upnp.Router;
-import net.sourceforge.subsonic.util.StringUtil;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Provides network-related services, including port forwarding on UPnP routers and
@@ -222,8 +221,6 @@ public class NetworkService {
             HttpPost request = new HttpPost(enable ? URL_REDIRECTION_REGISTER_URL : URL_REDIRECTION_UNREGISTER_URL);
 
             int port = settingsService.getPort();
-            boolean trial = !settingsService.isLicenseValid();
-            Date trialExpires = settingsService.getTrialExpires();
 
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("serverId", settingsService.getServerId()));
@@ -232,12 +229,8 @@ public class NetworkService {
             params.add(new BasicNameValuePair("localIp", settingsService.getLocalIpAddress()));
             params.add(new BasicNameValuePair("localPort", String.valueOf(port)));
             params.add(new BasicNameValuePair("contextPath", settingsService.getUrlRedirectContextPath()));
-            params.add(new BasicNameValuePair("trial", String.valueOf(trial)));
-            if (trial && trialExpires != null) {
-                params.add(new BasicNameValuePair("trialExpires", String.valueOf(trialExpires.getTime())));
-            } else {
-                params.add(new BasicNameValuePair("licenseHolder", settingsService.getLicenseEmail()));
-            }
+            params.add(new BasicNameValuePair("trial", "false"));
+            params.add(new BasicNameValuePair("licenseHolder", settingsService.getLicenseEmail()));
 
             HttpClient client = new DefaultHttpClient();
 
