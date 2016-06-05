@@ -345,13 +345,6 @@
         <property name="settingsService" ref="settingsService"/>
         <property name="mediaFileService" ref="mediaFileService"/>
     </bean>
-    <bean id="premiumSettingsController" class="net.sourceforge.subsonic.controller.PremiumSettingsController">
-        <property name="commandClass" value="net.sourceforge.subsonic.command.PremiumSettingsCommand"/>
-        <property name="successView" value="premiumSettings"/>
-        <property name="formView" value="premiumSettings"/>
-        <property name="settingsService" ref="settingsService"/>
-        <property name="securityService" ref="securityService"/>
-    </bean>
     <bean id="multiController" class="net.sourceforge.subsonic.controller.MultiController">
         <property name="securityService" ref="securityService"/>
         <property name="settingsService" ref="settingsService"/>
@@ -456,7 +449,6 @@
                 <prop key="/avatarUpload.view">avatarUploadController</prop>
                 <prop key="/userSettings.view">userSettingsController</prop>
                 <prop key="/passwordSettings.view">passwordSettingsController</prop>
-                <prop key="/premiumSettings.view">premiumSettingsController</prop>
                 <prop key="/allmusic.view">allmusicController</prop>
                 <prop key="/home.view">homeController</prop>
                 <prop key="/editTags.view">editTagsController</prop>
