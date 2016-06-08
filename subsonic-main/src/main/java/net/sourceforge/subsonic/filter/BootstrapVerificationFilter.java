@@ -38,10 +38,10 @@ import static net.sourceforge.subsonic.service.SettingsService.getHome;
 
 /**
  * This filter is executed very early in the filter chain. It verifies that
- * the Subsonic home directory (c:\subsonic or /var/subsonic) exists and
+ * the Subrobotnik home directory (c:\subrobotnik or /var/subrobotnik) exists and
  * is writable. If not, a proper error message is given to the user.
  * <p/>
- * (The Subsonic home directory is usually created automatically, but a common
+ * (The Subrobotnik home directory is usually created automatically, but a common
  * problem on Linux is that the Tomcat user does not have the necessary
  * privileges).
  *

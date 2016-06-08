@@ -35,19 +35,19 @@ import static net.sourceforge.subsonic.service.SettingsService.getHome;
  */
 public class SettingsServiceTestCase extends TestCase {
 
-    private static final File SUBSONIC_HOME = new File("/tmp/subsonic");
+    private static final File HOME = new File("/tmp/subrobotnik");
 
     private SettingsService settingsService;
 
     @Override
     protected void setUp() throws Exception {
-        System.setProperty("subsonic.home", SUBSONIC_HOME.getPath());
-        new File(SUBSONIC_HOME, "subrobotnik.properties").delete();
+        System.setProperty("subsonic.home", HOME.getPath());
+        new File(HOME, "subrobotnik.properties").delete();
         settingsService = new SettingsService();
     }
 
     public void testSubsonicHome() {
-        assertEquals("Wrong Subrobotnik home.", SUBSONIC_HOME, getHome());
+        assertEquals("Wrong Subrobotnik home.", HOME, getHome());
     }
 
     public void testDefaultValues() {

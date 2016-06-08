@@ -73,8 +73,8 @@ import static java.util.TimeZone.getTimeZone;
 public class SettingsService {
 
     // Subsonic home directory.
-    private static final File SUBSONIC_HOME_WINDOWS = new File("c:/subsonic");
-    private static final File SUBSONIC_HOME_OTHER = new File("/var/subsonic");
+    private static final File HOME_WINDOWS = new File("c:/subrobotnik");
+    private static final File HOME_OTHER = new File("/var/subrobotnik");
 
     // Number of free trial days.
     public static final long TRIAL_DAYS = 30L;
@@ -325,7 +325,7 @@ public class SettingsService {
             home = new File(overrideHome);
         } else {
             boolean isWindows = System.getProperty("os.name", "Windows").toLowerCase().startsWith("windows");
-            home = isWindows ? SUBSONIC_HOME_WINDOWS : SUBSONIC_HOME_OTHER;
+            home = isWindows ? HOME_WINDOWS : HOME_OTHER;
         }
 
         // Attempt to create home directory if it doesn't exist.
