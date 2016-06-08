@@ -56,7 +56,7 @@ public class SettingsServiceTestCase extends TestCase {
         assertEquals("Wrong default index creation hour.", 3, settingsService.getIndexCreationHour());
         assertTrue("Wrong default playlist folder.", settingsService.getPlaylistFolder().endsWith("playlists"));
         assertEquals("Wrong default theme.", "default", settingsService.getThemeId());
-        assertNull("Wrong default license email.", settingsService.getLicenseEmail());
+        assertEquals("Wrong default license email.", "sub@robotn.ik", settingsService.getLicenseEmail());
         assertNull("Wrong default license code.", settingsService.getLicenseCode());
         assertNull("Wrong default license date.", settingsService.getLicenseDate());
         assertEquals("Wrong default Podcast episode retention count.", 10, settingsService.getPodcastEpisodeRetentionCount());
