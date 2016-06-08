@@ -303,7 +303,7 @@ public class SettingsService {
     }
 
     private File getPropertyFile() {
-        return new File(getSubsonicHome(), "subsonic.properties");
+        return new File(getHome(), "subrobotnik.properties");
     }
 
     /**
@@ -312,7 +312,7 @@ public class SettingsService {
      * @return The Subsonic home directory, if it exists.
      * @throws RuntimeException If directory doesn't exist.
      */
-    public static synchronized File getSubsonicHome() {
+    public static synchronized File getHome() {
 
         if (subsonicHome != null) {
             return subsonicHome;

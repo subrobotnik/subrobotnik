@@ -77,6 +77,7 @@ import net.sourceforge.subsonic.domain.SearchResult;
 import net.sourceforge.subsonic.util.FileUtil;
 
 import static net.sourceforge.subsonic.service.SearchService.IndexType.*;
+import static net.sourceforge.subsonic.service.SettingsService.getHome;
 
 /**
  * Performs Lucene-based searching and indexing.
@@ -410,7 +411,7 @@ public class SearchService {
     }
 
     private File getIndexRootDirectory() {
-        return new File(SettingsService.getSubsonicHome(), LUCENE_DIR);
+        return new File(getHome(), LUCENE_DIR);
     }
 
     private File getIndexDirectory(IndexType indexType) {

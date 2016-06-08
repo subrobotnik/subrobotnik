@@ -45,6 +45,8 @@ import net.sourceforge.subsonic.io.TranscodeInputStream;
 import net.sourceforge.subsonic.util.StringUtil;
 import net.sourceforge.subsonic.util.Util;
 
+import static net.sourceforge.subsonic.service.SettingsService.getHome;
+
 /**
  * Provides services for transcoding media. Transcoding is the process of
  * converting an audio stream to a different format and/or bit rate. The latter is
@@ -471,7 +473,7 @@ public class TranscodingService {
      * Returns the directory in which all transcoders are installed.
      */
     public File getTranscodeDirectory() {
-        File dir = new File(SettingsService.getSubsonicHome(), "transcode");
+        File dir = new File(getHome(), "transcode");
         if (!dir.exists()) {
             boolean ok = dir.mkdir();
             if (ok) {

@@ -41,6 +41,8 @@ import net.sourceforge.subsonic.domain.MediaLibraryStatistics;
 import net.sourceforge.subsonic.domain.MusicFolder;
 import net.sourceforge.subsonic.util.FileUtil;
 
+import static net.sourceforge.subsonic.service.SettingsService.getHome;
+
 /**
  * Provides services for scanning the music library.
  *
@@ -392,8 +394,7 @@ public class MediaScannerService {
      * @return The index file for the given index version.
      */
     private File getIndexFile(int version) {
-        File home = SettingsService.getSubsonicHome();
-        return new File(home, "subsonic" + version + ".index");
+        return new File(getHome(), "subsonic" + version + ".index");
     }
 
     public void setSettingsService(SettingsService settingsService) {

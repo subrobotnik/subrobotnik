@@ -20,7 +20,10 @@
 package net.sourceforge.subsonic.filter;
 
 import net.sourceforge.subsonic.Logger;
-import net.sourceforge.subsonic.service.SettingsService;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -31,9 +34,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.concurrent.atomic.AtomicBoolean;
+import static net.sourceforge.subsonic.service.SettingsService.getHome;
 
 /**
  * This filter is executed very early in the filter chain. It verifies that
@@ -61,7 +62,7 @@ public class BootstrapVerificationFilter implements Filter {
             return;
         }
 
-        File home = SettingsService.getSubsonicHome();
+        File home = getHome();
         if (!directoryExists(home)) {
             error(res, "<p>The directory <b>" + home + "</b> does not exist. Please create it and make it writable, " +
                        "then restart the servlet container.</p>" +

@@ -20,17 +20,17 @@
 package net.sourceforge.subsonic.cache;
 
 
-import java.io.File;
-
-import org.springframework.beans.factory.InitializingBean;
-
-import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.config.Configuration;
 import net.sf.ehcache.config.ConfigurationFactory;
 import net.sourceforge.subsonic.Logger;
-import net.sourceforge.subsonic.service.SettingsService;
+
+import org.springframework.beans.factory.InitializingBean;
+
+import java.io.File;
+
+import static net.sourceforge.subsonic.service.SettingsService.getHome;
 
 /**
  * Initializes Ehcache and creates caches.
@@ -47,7 +47,7 @@ public class CacheFactory implements InitializingBean {
         Configuration configuration = ConfigurationFactory.parseConfiguration();
 
         // Override configuration to make sure cache is stored in Subsonic home dir.
-        File cacheDir = new File(SettingsService.getSubsonicHome(), "cache");
+        File cacheDir = new File(getHome(), "cache");
         configuration.getDiskStoreConfiguration().setPath(cacheDir.getPath());
 
         cacheManager = CacheManager.create(configuration);

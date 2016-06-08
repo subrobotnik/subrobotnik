@@ -19,14 +19,6 @@
  */
 package net.sourceforge.subsonic.dao;
 
-import java.io.File;
-
-import javax.sql.DataSource;
-
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-
 import net.sourceforge.subsonic.Logger;
 import net.sourceforge.subsonic.dao.schema.Schema;
 import net.sourceforge.subsonic.dao.schema.hsql.Schema25;
@@ -53,7 +45,16 @@ import net.sourceforge.subsonic.dao.schema.hsql.Schema50;
 import net.sourceforge.subsonic.dao.schema.hsql.Schema51;
 import net.sourceforge.subsonic.dao.schema.hsql.Schema52;
 import net.sourceforge.subsonic.dao.schema.hsql.Schema53;
-import net.sourceforge.subsonic.service.SettingsService;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
+import java.io.File;
+
+import javax.sql.DataSource;
+
+import static net.sourceforge.subsonic.service.SettingsService.getHome;
 
 /**
  * DAO helper class which creates the data source, and updates the database schema.
@@ -107,7 +108,7 @@ public class HsqlDaoHelper implements DaoHelper {
     }
 
     private DataSource createDataSource() {
-        File subsonicHome = SettingsService.getSubsonicHome();
+        File subsonicHome = getHome();
         DriverManagerDataSource ds = new DriverManagerDataSource();
         ds.setDriverClassName("org.hsqldb.jdbcDriver");
         ds.setUrl("jdbc:hsqldb:file:" + subsonicHome.getPath() + "/db/subsonic");

@@ -42,6 +42,8 @@ import net.sourceforge.subsonic.domain.ArtistBio;
 import net.sourceforge.subsonic.domain.MediaFile;
 import net.sourceforge.subsonic.domain.MusicFolder;
 
+import static net.sourceforge.subsonic.service.SettingsService.getHome;
+
 /**
  * Provides services from the Last.fm REST API.
  *
@@ -62,7 +64,7 @@ public class LastFmService {
         Caller caller = Caller.getInstance();
         caller.setUserAgent("Subsonic");
 
-        File cacheDir = new File(SettingsService.getSubsonicHome(), "lastfmcache");
+        File cacheDir = new File(getHome(), "lastfmcache");
         caller.setCache(new LastFmCache(cacheDir, CACHE_TIME_TO_LIVE_MILLIS));
     }
 

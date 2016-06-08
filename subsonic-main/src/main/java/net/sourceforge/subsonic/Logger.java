@@ -20,16 +20,26 @@
 package net.sourceforge.subsonic;
 
 import net.sourceforge.subsonic.domain.Version;
-import net.sourceforge.subsonic.service.*;
-import net.sourceforge.subsonic.util.*;
-import org.apache.commons.lang.exception.*;
+import net.sourceforge.subsonic.service.ServiceLocator;
+import net.sourceforge.subsonic.service.VersionService;
+import net.sourceforge.subsonic.util.BoundedList;
 
-import java.io.*;
-import java.text.*;
-import java.util.*;
+import org.apache.commons.lang.exception.ExceptionUtils;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+
+import static net.sourceforge.subsonic.service.SettingsService.getHome;
 
 /**
- * Logger implementation which logs to SUBSONIC_HOME/subsonic.log.
+ * Logger implementation which logs to SUBSONIC_HOME/subrobotnik.log.
  * <br/>
  * Note: Third party logging libraries (such as log4j and Commons logging) are intentionally not
  * used. These libraries causes a lot of headache when deploying to some application servers
@@ -168,7 +178,7 @@ public class Logger {
         try {
             getPrintWriter().println(entry);
         } catch (IOException x) {
-            System.err.println("Failed to write to subsonic.log. " + x);
+            System.err.println("Failed to write to subrobotnik.log. " + x);
         }
         entries.add(entry);
     }
@@ -181,8 +191,7 @@ public class Logger {
     }
 
     public static File getLogFile() {
-        File subsonicHome = SettingsService.getSubsonicHome();
-        return new File(subsonicHome, "subsonic.log");
+        return new File(getHome(), "subrobotnik.log");
     }
 
     /**
