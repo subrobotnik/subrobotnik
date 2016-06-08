@@ -1,12 +1,12 @@
 #!/bin/sh
 
 ###################################################################################
-# Shell script for starting Subsonic.  See http://subsonic.org.
+# Shell script for starting Subrobotnik.  See http://subsonic.org.
 #
 # Author: Sindre Mehus
 ###################################################################################
 
-SUBSONIC_HOME=/var/subsonic
+SUBSONIC_HOME=/var/subrobotnik
 SUBSONIC_HOST=0.0.0.0
 SUBSONIC_PORT=4040
 SUBSONIC_HTTPS_PORT=0
@@ -22,8 +22,8 @@ quiet=0
 usage() {
     echo "Usage: subsonic.sh [options]"
     echo "  --help               This small usage guide."
-    echo "  --home=DIR           The directory where Subsonic will create files."
-    echo "                       Make sure it is writable. Default: /var/subsonic"
+    echo "  --home=DIR           The directory where Subrobotnik will create files."
+    echo "                       Make sure it is writable. Default: /var/subrobotnik"
     echo "  --host=HOST          The host name or IP address on which to bind Subsonic."
     echo "                       Only relevant if you have multiple network interfaces and want"
     echo "                       to make Subsonic available on only one of them. The default value"
@@ -33,7 +33,7 @@ usage() {
     echo "  --https-port=PORT    The port on which Subsonic will listen for"
     echo "                       incoming HTTPS traffic. Default: 0 (disabled)"
     echo "  --context-path=PATH  The context path, i.e., the last part of the Subsonic"
-    echo "                       URL. Typically '/' or '/subsonic'. Default '/'"
+    echo "                       URL. Typically '/' or '/subrobotnik'. Default '/'"
     echo "  --max-memory=MB      The memory limit (max Java heap size) in megabytes."
     echo "                       Default: 100"
     echo "  --pidfile=PIDFILE    Write PID to this file. Default not created."

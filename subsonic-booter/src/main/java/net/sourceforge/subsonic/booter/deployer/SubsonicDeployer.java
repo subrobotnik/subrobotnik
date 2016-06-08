@@ -48,8 +48,8 @@ public class SubsonicDeployer implements SubsonicDeployerService {
     private static final int HEADER_BUFFER_SIZE = 64 * 1024;
 
     // Subsonic home directory.
-    private static final File SUBSONIC_HOME_WINDOWS = new File("c:/subsonic");
-    private static final File SUBSONIC_HOME_OTHER = new File("/var/subsonic");
+    private static final File HOME_WINDOWS = new File("c:/subsonic");
+    private static final File HOME_OTHER = new File("/var/subrobotnik");
 
     private Throwable exception;
     private File subsonicHome;
@@ -155,7 +155,7 @@ public class SubsonicDeployer implements SubsonicDeployerService {
     }
 
     private File getJettyDirectory() {
-        File dir = new File(getSubsonicHome(), "jetty");
+        File dir = new File(getHome(), "jetty");
         String buildNumber = getSubsonicBuildNumber();
         if (buildNumber != null) {
             dir = new File(dir, buildNumber);
@@ -298,7 +298,7 @@ public class SubsonicDeployer implements SubsonicDeployerService {
      * @return The Subsonic home directory, if it exists.
      * @throws RuntimeException If directory doesn't exist.
      */
-    private File getSubsonicHome() {
+    private File getHome() {
 
         if (subsonicHome != null) {
             return subsonicHome;
@@ -311,7 +311,7 @@ public class SubsonicDeployer implements SubsonicDeployerService {
             home = new File(overrideHome);
         } else {
             boolean isWindows = System.getProperty("os.name", "Windows").toLowerCase().startsWith("windows");
-            home = isWindows ? SUBSONIC_HOME_WINDOWS : SUBSONIC_HOME_OTHER;
+            home = isWindows ? HOME_WINDOWS : HOME_OTHER;
         }
 
         // Attempt to create home directory if it doesn't exist.

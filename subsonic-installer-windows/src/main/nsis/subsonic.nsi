@@ -55,12 +55,12 @@ Section "Subsonic"
   ExecWait '"$INSTDIR\uninstall.exe" /S _?=$INSTDIR'
 
   # Remove previous Jetty temp directory.
-  RMDir /r "c:\subsonic\jetty"
+  RMDir /r "c:\subrobotnik\jetty"
 
   # Backup database.
-  RMDir /r "c:\subsonic\db.backup"
-  CreateDirectory "c:\subsonic\db.backup"
-  CopyFiles /SILENT "c:\subsonic\db\*" "c:\subsonic\db.backup"
+  RMDir /r "c:\subrobotnik\db.backup"
+  CreateDirectory "c:\subrobotnik\db.backup"
+  CopyFiles /SILENT "c:\subrobotnik\db\*" "c:\subrobotnik\db.backup"
 
   # Set output path to the installation directory.
   SetOutPath $INSTDIR
@@ -95,7 +95,7 @@ Section "Subsonic"
   Delete $TEMP\subsonic-service.exe.vmoptions
 
   # Write transcoding pack files.
-  SetOutPath "c:\subsonic\transcode"
+  SetOutPath "c:\subrobotnik\transcode"
   File ..\..\..\..\subsonic-transcode\windows\*.*
 
   # Add Windows Firewall exception.
