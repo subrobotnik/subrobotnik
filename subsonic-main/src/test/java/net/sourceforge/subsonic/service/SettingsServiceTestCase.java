@@ -26,6 +26,8 @@ import java.util.Locale;
 
 import junit.framework.TestCase;
 
+import static net.sourceforge.subsonic.service.SettingsService.getHome;
+
 /**
  * Unit test of {@link SettingsService}.
  *
@@ -40,12 +42,12 @@ public class SettingsServiceTestCase extends TestCase {
     @Override
     protected void setUp() throws Exception {
         System.setProperty("subsonic.home", SUBSONIC_HOME.getPath());
-        new File(SUBSONIC_HOME, "subsonic.properties").delete();
+        new File(SUBSONIC_HOME, "subrobotnik.properties").delete();
         settingsService = new SettingsService();
     }
 
     public void testSubsonicHome() {
-        assertEquals("Wrong Subsonic home.", SUBSONIC_HOME, SettingsService.getSubsonicHome());
+        assertEquals("Wrong Subrobotnik home.", SUBSONIC_HOME, getHome());
     }
 
     public void testDefaultValues() {
@@ -83,7 +85,6 @@ public class SettingsServiceTestCase extends TestCase {
         settingsService.setThemeId("dark");
         settingsService.setIndexCreationInterval(4);
         settingsService.setIndexCreationHour(9);
-        settingsService.setLicenseEmail("sindre@foo.bar.no");
         settingsService.setLicenseCode(null);
         settingsService.setLicenseDate(new Date(223423412351253L));
         settingsService.setPodcastEpisodeRetentionCount(5);
@@ -123,7 +124,7 @@ public class SettingsServiceTestCase extends TestCase {
         assertEquals("Wrong theme.", "dark", ss.getThemeId());
         assertEquals("Wrong index creation interval.", 4, ss.getIndexCreationInterval());
         assertEquals("Wrong index creation hour.", 9, ss.getIndexCreationHour());
-        assertEquals("Wrong license email.", "sindre@foo.bar.no", ss.getLicenseEmail());
+        assertEquals("Wrong license email.", "sub@robotn.ik", ss.getLicenseEmail());
         assertEquals("Wrong license code.", null, ss.getLicenseCode());
         assertEquals("Wrong license date.", new Date(223423412351253L), ss.getLicenseDate());
         assertEquals("Wrong Podcast episode retention count.", 5, settingsService.getPodcastEpisodeRetentionCount());
